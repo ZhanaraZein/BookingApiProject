@@ -43,11 +43,11 @@ headers = {
 # In[7]:
 
 
-childrens = 2
-guests = 2
-rooms = 2
-departure_date = "2023-02-13" #departure date must be after arrival date.
-arrival_date = "2023-02-11" #arrival date must be today or after today.
+childrens = input("How many children?  ")
+guests = input("How many guests?  ")
+rooms = input("How many rooms?  ")
+departure_date = input("What is the date of your departure? Hint: yyyy-mm-dd  ") #departure date must be after arrival date.
+arrival_date = input("What is the date of your arrival? Hint: yyyy-mm-dd  ") #arrival date must be today or after today.
 
 
 # In[46]:
