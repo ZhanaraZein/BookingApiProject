@@ -88,14 +88,18 @@ list_by_map_response
 # In[56]:
 
 
-for list_result in list_by_map_response['result']:
-    print('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
-    print("Name: ", list_result['hotel_name'])
-    print("Establishment: ", list_result['accommodation_type_name'])
-    print("Price: ", list_result['price_breakdown']['gross_price'], list_result['currencycode']) 
-    print("Guest Reviews: ", list_result['review_score'], "(",list_result['review_score_word'], ")")
-    print("Address: ", list_result['address'])
-    print("Website: ", list_result['url'])
+if "result" in list_by_map_response:
+    for list_result in list_by_map_response['result']:
+        print('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
+        print("Name: ", list_result['hotel_name'])
+        print("Establishment: ", list_result['accommodation_type_name'])
+        print("Price: ", list_result['price_breakdown']['gross_price'], list_result['currencycode']) 
+        print("Guest Reviews: ", list_result['review_score'], "(",list_result['review_score_word'], ")")
+        print("Address: ", list_result['address'])
+        print("Website: ", list_result['url'])
+
+else:
+    print("The request was entered incorrectly!", list_by_map_response['message'])
 
 
 # In[ ]:
