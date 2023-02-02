@@ -40,17 +40,17 @@ headers = {
 }
 
 
-# In[7]:
+# In[3]:
 
 
-childrens = 2
-guests = 2
-rooms = 2
-departure_date = "2023-02-13" #departure date must be after arrival date.
-arrival_date = "2023-02-11" #arrival date must be today or after today.
+childrens = input("How many children?  ")
+guests = input("How many guests?  ")
+rooms = input("How many rooms?  ")
+departure_date = input("What is the date of your departure? Hint: yyyy-mm-dd  ") #departure date must be after arrival date.
+arrival_date = input("What is the date of your arrival? Hint: yyyy-mm-dd  ") #arrival date must be today or after today.
 
 
-# In[46]:
+# In[4]:
 
 
 list_by_map_url = "https://apidojo-booking-v1.p.rapidapi.com/properties/list-by-map"
@@ -68,7 +68,7 @@ list_by_map_querystring = {
     "guest_qty":str(guests),
     "room_qty":str(rooms),
     "departure_date":departure_date,
-    "bbox":"50.085255%2C50.087689%2C14.428965%2C14.414363",
+    "bbox":"49.2743100%2C50.8784941%2C13.1709517%2C15.9043652",
     "arrival_date":arrival_date
 }
 list_by_map_headers = {
@@ -79,13 +79,13 @@ list_by_map_headers = {
 list_by_map_response = requests.request("GET", list_by_map_url, headers=list_by_map_headers, params=list_by_map_querystring).json()
 
 
-# In[47]:
+# In[5]:
 
 
 list_by_map_response
 
 
-# In[56]:
+# In[6]:
 
 
 for list_result in list_by_map_response['result']:
