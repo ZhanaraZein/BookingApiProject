@@ -9,9 +9,9 @@ Requirements to run the project can be found in [Requirements.txt](https://githu
 
 ### Step 1: Run the analysis using the script [BookingAPI-(Prague-Properties)_300123](BookingAPI-(Prague-Properties)_300123.py)
 
-* Clone the repository and save the script on your computer.
-* Open Command Prompt and install the following library by writing "pip install -U kaleido". Press Enter.
+* Clone the repository.
 * Specify the path to the folder where the script is saved by writing "cd folder_adress". Press Enter.
+* Open Command Prompt and install the following library by writing "pip install -r requirements.txt". Press Enter.
 * When the folder is specified, write "python "BookingAPI-(Prague-Properties)_300123.py" outputdir". Press Enter.
 
 Database files and visualizations will be saved automatically in the folder "data".
