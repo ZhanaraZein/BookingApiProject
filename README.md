@@ -19,7 +19,7 @@ Database files and visualizations will be saved automatically in the folder "dat
 ### Step 2: Run the search function using the script [BookingAPI_on_Query](https://github.com/ZhanaraZein/BookingApiProject/blob/main/BookingAPI_on_Query.py)
 
 * Open Command Prompt and specify the path to the folder where the scrip is saved by writing "cd folder adress". Press Enter. If the path is specified ignore this step.
-* When the folder is specified, write "python "BookingAPI_on_Query_310123.py" outputdir". Press Enter.
+* When the folder is specified, write "python "BookingAPI_on_Query.py" outputdir". Press Enter.
 
 # How to Use The Query Script
 
