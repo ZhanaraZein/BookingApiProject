@@ -7,6 +7,7 @@
 # Libraries
 import re
 import time
+from datetime import datetime
 import requests
 import pandas as pd
 import numpy as np
@@ -46,8 +47,24 @@ headers = {
 childrens = input("How many children?  ")
 guests = input("How many guests?  ")
 rooms = input("How many rooms?  ")
+
+if (not childrens.isdigit() or int(childrens) < 0) or (not guests.isdigit() or int(guests) <= 0) or (not rooms.isdigit() or int(rooms) <= 0):
+    print("Input is not correct")
+    raise SystemExit
+
 departure_date = input("What is the date of your departure? Hint: yyyy-mm-dd  ") #departure date must be after arrival date.
 arrival_date = input("What is the date of your arrival? Hint: yyyy-mm-dd  ") #arrival date must be today or after today.
+
+try:
+    departure_datetime = datetime.strptime(departure_date, '%Y-%m-%d')
+    arrival_datetime = datetime.strptime(arrival_date, '%Y-%m-%d')
+    
+    if arrival_datetime > departure_datetime:
+        print("Departure date must be greater than arrival date")
+        raise SystemExit
+except ValueError:
+    print("Date format is not correct")
+    raise SystemExit
 
 
 # In[4]:
