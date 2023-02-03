@@ -296,7 +296,7 @@ refined.to_json("./data/booking_api_prague.json")
 # In[17]:
 
 
-refined = refined[refined['District'].str.extract('(\d+)').notnull().any(1)]
+refined = refined[refined['District'].str.extract('(\d+)').notnull().any(axis='columns')]
 
 
 # In[18]:
