@@ -7,7 +7,7 @@ The main objective of the project is to develop a search function in Python for 
 
 Requirements to run the project can be found in [Requirements.txt](https://github.com/ZhanaraZein/BookingApiProject/blob/main/Requirements.txt).
 
-### Step 1: Run the analysis using the script [BookingAPI-(Prague-Properties)_300123](BookingAPI-(Prague-Properties)_300123.py)
+### Step 1: Run the analysis using the script [BookingAPI-(Prague-Properties)](BookingAPI-(Prague-Properties)_300123.py)
 
 * Clone the repository.
 * Specify the path to the folder where the script is saved by writing "cd folder_adress". Press Enter.
