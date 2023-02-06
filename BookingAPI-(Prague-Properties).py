@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[30]:
-
 
 # Libraries
 import re
@@ -15,74 +13,6 @@ import seaborn as sns
 import plotly.express as px
 import os
 import argparse
-
-parser = argparse.ArgumentParser()
-parser.add_argument('outdir', type=str, help='Output dir for plots')
-args = parser.parse_args()
-
-plotDir = "./data/" + args.outdir
-isExist = os.path.exists(plotDir)
-if not isExist:
-
-    #Create a new directory because it does not exist
-    os.makedirs(plotDir)
-    print("The new directory is created!")
-
-# In[31]:
-
-
-# Headers
-headers = {
-    'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8',
-    'Connection': 'keep-alive',
-    'Origin': 'https://www.booking.com',
-    'Referer': 'https://www.booking.com/searchresults.en-gb.html?label=gen173nr-1BCAEoggI46AdIM1gEaLUBiAEBmAEJuAEHyAEM2AEB6AEBiAIBqAIDuAK9xPmdBsACAdICJDlkYzZmNjg5LTE0ZjYtNDIzYy04NjVkLWRmOTYyNTE5M2MyMdgCBeACAQ&sid=dd84131c86d6702477f73e2ef27d68fd&aid=304142&ss=Prague&ssne=Prague&ssne_untouched=Prague&efdco=1&lang=en-gb&sb=1&src_elem=sb&src=searchresults&dest_id=-553173&dest_type=city&group_adults=1&no_rooms=1&group_children=0&sb_travel_purpose=leisure&offset=25',
-    'Sec-Fetch-Dest': 'empty',
-    'Sec-Fetch-Mode': 'cors',
-    'Sec-Fetch-Site': 'same-origin',
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
-    'accept': '*/*',
-    'content-type': 'application/json',
-    'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
-    'sec-ch-ua-mobile': '?0',
-    'sec-ch-ua-platform': '"macOS"',
-    'x-booking-context-action-name': 'searchresults_irene',
-    'x-booking-context-aid': '304142',
-    'x-booking-csrf-token': 'eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjb250ZXh0LWVucmljaG1lbnQtYXBpIiwic3ViIjoiY3NyZi10b2tlbiIsImlhdCI6MTY3MzQyMTUwMywiZXhwIjoxNjczNTA3OTAzfQ.O-E37yonSqKx3RuoFDkGAWrCHbYS-lY2UXdrYesnTkTTGzZodSaH5DelZ6czQ9BC-aNYmFb1aJK0b-rMEgykFg',
-    'x-booking-et-serialized-state': 'Egpj8VUSf_gj5c3Er0faHJXODjBQQF4-6qXaEiO_2JpwusJpAivxWdEwi4IqmN0u6',
-    'x-booking-pageview-id': 'af48335f88300013',
-    'x-booking-site-type-id': '1',
-    'x-booking-topic': 'capla_browser_b-search-web-searchresults',
-}
-
-
-# In[32]:
-
-
-# Parameters
-params = {
-    'ss': 'Prague',
-    'ssne': 'Prague',
-    'ssne_untouched': 'Prague',
-    'efdco': '1',
-    'label': 'gen173nr-1BCAEoggI46AdIM1gEaLUBiAEBmAEJuAEHyAEM2AEB6AEBiAIBqAIDuAK9xPmdBsACAdICJDlkYzZmNjg5LTE0ZjYtNDIzYy04NjVkLWRmOTYyNTE5M2MyMdgCBeACAQ',
-    'sid': 'dd84131c86d6702477f73e2ef27d68fd',
-    'aid': '304142',
-    'lang': 'en-gb',
-    'sb': '1',
-    'src_elem': 'sb',
-    'src': 'searchresults',
-    'dest_id': '-553173',
-    'dest_type': 'city',
-    'group_adults': '1',
-    'no_rooms': '1',
-    'group_children': '0',
-    'sb_travel_purpose': 'leisure',
-}
-
-
-# In[33]:
-
 
 def query(offset):
   # Request Query
@@ -140,42 +70,70 @@ def query(offset):
   }
   return json_data
 
+def getResults():
+    # Headers
+    headers = {
+        'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8',
+        'Connection': 'keep-alive',
+        'Origin': 'https://www.booking.com',
+        'Referer': 'https://www.booking.com/searchresults.en-gb.html?label=gen173nr-1BCAEoggI46AdIM1gEaLUBiAEBmAEJuAEHyAEM2AEB6AEBiAIBqAIDuAK9xPmdBsACAdICJDlkYzZmNjg5LTE0ZjYtNDIzYy04NjVkLWRmOTYyNTE5M2MyMdgCBeACAQ&sid=dd84131c86d6702477f73e2ef27d68fd&aid=304142&ss=Prague&ssne=Prague&ssne_untouched=Prague&efdco=1&lang=en-gb&sb=1&src_elem=sb&src=searchresults&dest_id=-553173&dest_type=city&group_adults=1&no_rooms=1&group_children=0&sb_travel_purpose=leisure&offset=25',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-origin',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+        'accept': '*/*',
+        'content-type': 'application/json',
+        'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"macOS"',
+        'x-booking-context-action-name': 'searchresults_irene',
+        'x-booking-context-aid': '304142',
+        'x-booking-csrf-token': 'eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjb250ZXh0LWVucmljaG1lbnQtYXBpIiwic3ViIjoiY3NyZi10b2tlbiIsImlhdCI6MTY3MzQyMTUwMywiZXhwIjoxNjczNTA3OTAzfQ.O-E37yonSqKx3RuoFDkGAWrCHbYS-lY2UXdrYesnTkTTGzZodSaH5DelZ6czQ9BC-aNYmFb1aJK0b-rMEgykFg',
+        'x-booking-et-serialized-state': 'Egpj8VUSf_gj5c3Er0faHJXODjBQQF4-6qXaEiO_2JpwusJpAivxWdEwi4IqmN0u6',
+        'x-booking-pageview-id': 'af48335f88300013',
+        'x-booking-site-type-id': '1',
+        'x-booking-topic': 'capla_browser_b-search-web-searchresults',
+    }
 
-# In[34]:
+    # Parameters
+    params = {
+        'ss': 'Prague',
+        'ssne': 'Prague',
+        'ssne_untouched': 'Prague',
+        'efdco': '1',
+        'label': 'gen173nr-1BCAEoggI46AdIM1gEaLUBiAEBmAEJuAEHyAEM2AEB6AEBiAIBqAIDuAK9xPmdBsACAdICJDlkYzZmNjg5LTE0ZjYtNDIzYy04NjVkLWRmOTYyNTE5M2MyMdgCBeACAQ',
+        'sid': 'dd84131c86d6702477f73e2ef27d68fd',
+        'aid': '304142',
+        'lang': 'en-gb',
+        'sb': '1',
+        'src_elem': 'sb',
+        'src': 'searchresults',
+        'dest_id': '-553173',
+        'dest_type': 'city',
+        'group_adults': '1',
+        'no_rooms': '1',
+        'group_children': '0',
+        'sb_travel_purpose': 'leisure',
+    }
 
+    results = []
 
-results = []
+    for offset in range(0, 2001, 100):
+      json_data = query(offset)
+      response = requests.post('https://www.booking.com/dml/graphql', params=params, headers=headers, json=json_data).json()
+      results.append(response['data']['searchQueries']['search']['results'])
+      time.sleep(0.1)
+      print("Done: {}".format(offset))
 
+    results = [res for result in results for res in result]
 
-# In[35]:
-
-
-for offset in range(0, 2001, 100):
-  json_data = query(offset)
-  response = requests.post('https://www.booking.com/dml/graphql', params=params, headers=headers, json=json_data).json()
-  results.append(response['data']['searchQueries']['search']['results'])
-  time.sleep(0.1)
-  print("Done: {}".format(offset))
-
-
-# In[36]:
-
-
-results = [res for result in results for res in result]
-
-
-# In[37]:
-
+    return results;
 
 def handleStarRaitingData(data):
     if data:
         return data['value']
     
     return 0
-
-
-# In[38]:
-
 
 def handleEstablishmentData(data):
     if "hotel" in data.lower():
@@ -197,10 +155,6 @@ def handleEstablishmentData(data):
         data = "other"
 
     return data
-
-
-# In[39]:
-
 
 def handleDistrictData(data):
     replacedValues = [
@@ -225,10 +179,6 @@ def handleDistrictData(data):
 
     return data
 
-
-# In[40]:
-
-
 def handleDistanceData(data):
     data = re.findall(r"[-+]?(?:\d*\.*\d+)", data)[0]
 
@@ -236,10 +186,6 @@ def handleDistanceData(data):
         data = float(data) / 1000
     
     return float(data)
-
-
-# In[41]:
-
 
 def get(data):
     return {
@@ -256,173 +202,136 @@ def get(data):
       "image": "https://cf.bstatic.com"+data['basicPropertyData']['photos']['main']['highResJpegUrl']['relativeUrl']
     }
 
-
-# In[42]:
-
-
-cleaned = []
-for result in results:
-    cleaned.append(get(result))
-
-
-# In[43]:
-
-
-cleaned[0]
-
-
-# In[44]:
-
-
-data = pd.DataFrame.from_records(cleaned)
-
-
-# In[45]:
-
-
-refined = data[~data.duplicated()]
-
-
-# In[48]:
-
-
-refined.to_csv("./data/booking_api_prague.csv")
-refined.to_excel("./data/booking_api_prague.xlsx")
-refined.to_json("./data/booking_api_prague.json")
-
-
-# # Refining The Data
-
-# In[17]:
-
-
-refined = refined[refined['District'].str.extract('(\d+)').notnull().any(axis='columns')]
-
-
-# In[18]:
-
-
-refined.drop(["type", "countryCode", "image"], inplace=True, axis=1)
-
-
-# In[19]:
-
-
-refined.head()
-
-
-# In[20]:
-
-
-refined
-
-
-# In[21]:
-
-
-refined.columns = ["Establishment", "Rating", "Review Count", "Address", "District", "Star Rating", "Distance", "Level"]
-
-
-# In[22]:
-
-
-sort1=refined.sort_values("District")
-plt.figure(figsize=(30, 9))
-plt.bar(sort1['District'], refined['Star Rating'])
-plt.xlabel('District', fontsize = 20)
-plt.ylabel('Star Rating', fontsize = 20)
-plt.title("Star Ratings w.r.t District", fontsize = 30)
-plt.xticks(rotation=45, ha='right', fontsize = 15)
-plt.yticks(fontsize = 15)
-plt.savefig(plotDir + "/Star_Ratings_w.r.t_District.jpg")
-
-
-# In[23]:
-
-
-# create a pie chart of the Establishment Types
-plt.figure(figsize=(10, 10))
-level_counts = refined['Establishment'].value_counts()
-plt.pie(level_counts.values, labels=level_counts.index, autopct='%1.2f%%')
-plt.title("Distribution of Establishment Types")
-plt.savefig(plotDir + "/Distribution_of_Establishment_Types.jpg")
-
-
-# In[24]:
-
-
-# create a histogram of the review count
-plt.figure(figsize=(12, 9))
-plt.hist(refined['Review Count'], bins=20, color="green")
-plt.xlabel('Review Count')
-plt.ylabel('Frequency')
-plt.title("Distribution of Reviews in Properties")
-plt.savefig(plotDir + "/Distribution_of_Reviews_in_Properties.jpg")
-
-
-# In[25]:
-
-
-# create a box plot of the star rating
-plt.figure(figsize=(12, 9))
-refined.boxplot(column='Star Rating', by='District', figsize=(12, 9))
-plt.xticks(rotation=45, ha='right')
-plt.savefig(plotDir + "/Box_plot_Star_Rating_vs._District.jpg")
-
-
-# In[26]:
-
-
-# create a stacked bar chart of the Establishment by city
-level_counts = refined.groupby(['District', 'Establishment']).size().reset_index(name='counts')
-level_counts = level_counts.pivot(index='District', columns='Establishment', values='counts')
-level_counts.plot(kind='bar', stacked=True, figsize=(25, 12))
-plt.title("Bar Chart w.r.t District vs Establishment", fontsize = 30)
-plt.xlabel('District', fontsize = 20)
-plt.ylabel('Count',  fontsize = 20)
-plt.xticks(rotation=45, ha='right', fontsize = 15)
-plt.yticks(fontsize = 15)
-plt.savefig(plotDir + "/Bar_Chart_w.r.t_District_vs_Establishment.jpg")
-
-
-# In[27]:
-
-
-#create a heat map of  review count and distance
-plt.figure(figsize=(12, 9))
-plt.hist2d(refined['Review Count'], refined['Distance'].astype("float32"))
-plt.xlabel('Review Count')
-plt.ylabel('Distance')
-plt.title("Intensity of Reviews w.r.t Distance")
-plt.colorbar()
-plt.savefig(plotDir + "/Intensity_of_Reviews_w.r.t_Distance.jpg")
-
-
-# In[28]:
-
-
-plt.figure(figsize=(30, 9))
-plt.bar(refined['District'], refined['Rating'])
-plt.xlabel('District', fontsize = 20)
-plt.ylabel('Rating', fontsize = 20)
-plt.title("Ratings w.r.t District", fontsize = 30)
-plt.xticks(rotation=45, ha='right', fontsize = 15)
-plt.yticks(fontsize = 15)
-plt.savefig(plotDir + "/Ratings_w.r.t_District.jpg")
-
-
-# In[188]:
-
-
-# create a scatter plot of review count and distance with hovers
-sort = refined.sort_values("Distance")
-fig = px.scatter(sort, x='Review Count', y='Distance', hover_data=['Establishment', 'Rating', 'District', 'Star Rating'])
-fig.write_image(plotDir + "/Scatter_plot_Review_Count_vs._Distance.png")
-
-
-# In[29]:
-
-
-figB = px.scatter(refined, x='Review Count', y='Star Rating', hover_data=['Establishment', 'Rating', 'District', 'Star Rating'])
-figB.write_image(plotDir + "/Scatter_plot_Review_Count_vs._Star_Rating.png")
-
+def getCleanedData():
+
+    cleaned = []
+
+    results = getResults()
+
+    for result in results:
+        cleaned.append(get(result))
+
+    return cleaned
+
+def getRefinedData():
+
+    data = pd.DataFrame.from_records(getCleanedData())
+
+    refined = data[~data.duplicated()]
+    
+    refined.to_csv("./data/booking_api_prague.csv")
+    
+    refined = refined[refined['District'].str.extract('(\d+)').notnull().any(axis='columns')]
+    
+    refined.drop(["type", "countryCode", "image"], inplace=True, axis=1)
+    
+    refined.head()
+
+    refined.columns = ["Establishment", "Rating", "Review Count", "Address", "District", "Star Rating", "Distance", "Level"]
+    
+    return refined
+
+def createStarRatingPlot(path, data):
+    sort1=data.sort_values("District")
+    plt.figure(figsize=(30, 9))
+    plt.bar(sort1['District'], data['Star Rating'])
+    plt.xlabel('District', fontsize = 20)
+    plt.ylabel('Star Rating', fontsize = 20)
+    plt.title("Star Ratings w.r.t District", fontsize = 30)
+    plt.xticks(rotation=45, ha='right', fontsize = 15)
+    plt.yticks(fontsize = 15)
+    plt.savefig(path + "/Star_Ratings_w.r.t_District.jpg")
+
+def createEstablishmentTypePieChart(path, data):
+    # create a pie chart of the Establishment Types
+    plt.figure(figsize=(10, 10))
+    level_counts = data['Establishment'].value_counts()
+    plt.pie(level_counts.values, labels=level_counts.index, autopct='%1.2f%%')
+    plt.title("Distribution of Establishment Types")
+    plt.savefig(path + "/Distribution_of_Establishment_Types.jpg")
+
+def createReviewCountHistogram(path, data):
+    # create a histogram of the review count
+    plt.figure(figsize=(12, 9))
+    plt.hist(data['Review Count'], bins=20, color="green")
+    plt.xlabel('Review Count')
+    plt.ylabel('Frequency')
+    plt.title("Distribution of Reviews in Properties")
+    plt.savefig(path + "/Distribution_of_Reviews_in_Properties.jpg")
+
+def createStarRatingBoxPlot(path, data):
+    # create a box plot of the star rating
+    plt.figure(figsize=(12, 9))
+    data.boxplot(column='Star Rating', by='District', figsize=(12, 9))
+    plt.xticks(rotation=45, ha='right')
+    plt.savefig(path + "/Box_plot_Star_Rating_vs._District.jpg")
+
+def createEstablishmentBarChart(path, data):
+    # create a stacked bar chart of the Establishment by city
+    level_counts = data.groupby(['District', 'Establishment']).size().reset_index(name='counts')
+    level_counts = level_counts.pivot(index='District', columns='Establishment', values='counts')
+    level_counts.plot(kind='bar', stacked=True, figsize=(25, 12))
+    plt.title("Bar Chart w.r.t District vs Establishment", fontsize = 30)
+    plt.xlabel('District', fontsize = 20)
+    plt.ylabel('Count',  fontsize = 20)
+    plt.xticks(rotation=45, ha='right', fontsize = 15)
+    plt.yticks(fontsize = 15)
+    plt.savefig(path + "/Bar_Chart_w.r.t_District_vs_Establishment.jpg")
+
+def createReviewCountHeatMap(path, data):
+    #create a heat map of  review count and distance
+    plt.figure(figsize=(12, 9))
+    plt.hist2d(data['Review Count'], data['Distance'].astype("float32"))
+    plt.xlabel('Review Count')
+    plt.ylabel('Distance')
+    plt.title("Intensity of Reviews w.r.t Distance")
+    plt.colorbar()
+    plt.savefig(path + "/Intensity_of_Reviews_w.r.t_Distance.jpg")
+
+def createRatingsPlot(path, data):
+    plt.figure(figsize=(30, 9))
+    plt.bar(data['District'], data['Rating'])
+    plt.xlabel('District', fontsize = 20)
+    plt.ylabel('Rating', fontsize = 20)
+    plt.title("Ratings w.r.t District", fontsize = 30)
+    plt.xticks(rotation=45, ha='right', fontsize = 15)
+    plt.yticks(fontsize = 15)
+    plt.savefig(path + "/Ratings_w.r.t_District.jpg")
+
+def createReviewCountVsDistanceScatterPlot(path, data):
+    # create a scatter plot of review count and distance with hovers
+    sort = data.sort_values("Distance")
+    fig = px.scatter(sort, x='Review Count', y='Distance', hover_data=['Establishment', 'Rating', 'District', 'Star Rating'])
+    fig.write_image(path + "/Scatter_plot_Review_Count_vs._Distance.png")
+
+def createReviewCountVsStarRatingScatterPlot(path, data):
+    figB = px.scatter(data, x='Review Count', y='Star Rating', hover_data=['Establishment', 'Rating', 'District', 'Star Rating'])
+    figB.write_image(path + "/Scatter_plot_Review_Count_vs._Star_Rating.png")
+
+def createPlots(path, data):
+    createStarRatingPlot(path, data)
+    createEstablishmentTypePieChart(path, data)
+    createReviewCountHistogram(path, data)
+    createStarRatingBoxPlot(path, data)
+    createEstablishmentBarChart(path, data)
+    createReviewCountHeatMap(path, data)
+    createRatingsPlot(path, data)
+    createReviewCountVsDistanceScatterPlot(path, data)
+    createReviewCountVsStarRatingScatterPlot(path, data)
+    
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('outdir', type=str, help='Output dir for plots')
+    args = parser.parse_args()
+
+    plotsDir = "./data/" + args.outdir
+
+    isExist = os.path.exists(plotsDir)
+    if not isExist:
+        #Create a new directory because it does not exist
+        os.makedirs(plotsDir)
+        print("The new directory " + plotsDir + " is created!")
+
+    createPlots(plotsDir, getRefinedData())
+    
+main()
