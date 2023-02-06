@@ -7,19 +7,19 @@ The main objective of the project is to develop a search function in Python for 
 
 Requirements to run the project can be found in [Requirements.txt](https://github.com/ZhanaraZein/BookingApiProject/blob/main/Requirements.txt).
 
-### Step 1: Run the analysis using the script [BookingAPI-(Prague-Properties)](BookingAPI-(Prague-Properties)_300123.py)
+### Step 1: Run the analysis using the script [BookingAPI-(Prague-Properties)](BookingAPI-(Prague-Properties).py)
 
 * Clone the repository.
 * Specify the path to the folder where the script is saved by writing "cd folder_adress". Press Enter.
 * Open Command Prompt and install the following library by writing "pip install -r requirements.txt". Press Enter.
-* When the folder is specified, write "python "BookingAPI-(Prague-Properties)_300123.py" outputdir". Press Enter.
+* When the folder is specified, write "python "BookingAPI-(Prague-Properties).py" outputdir". Press Enter.
 
 Database files and visualizations will be saved automatically in the folder "data".
 
-### Step 2: Run the search function using the script [BookingAPI_on_Query](https://github.com/ZhanaraZein/BookingApiProject/blob/main/BookingAPI_on_Query.py)
+### Step 2: Run the search function using the script [BookingAPI-on-Query](BookingAPI-on-Query.py)
 
 * Open Command Prompt and specify the path to the folder where the scrip is saved by writing "cd folder adress". Press Enter. If the path is specified ignore this step.
-* When the folder is specified, write "python "BookingAPI_on_Query.py" outputdir". Press Enter.
+* When the folder is specified, write "python "BookingAPI-on-Query.py" outputdir". Press Enter.
 
 # How to Use The Query Script
 
